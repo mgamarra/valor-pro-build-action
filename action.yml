@@ -20,6 +20,9 @@ runs:
   using: "composite"
   steps:
     - run: |
+        pwd
+        ls -lha
+
         env | grep -v ^GITHUB | sort
         if  [ -f .env ]; then
             export $(grep -v '^#' .env  | xargs)
