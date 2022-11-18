@@ -1,0 +1,37 @@
+name: valor-pro-build-action
+description: docker build and push action.
+author: Brian Douglas
+branding:
+  icon: 'thumbs-up'
+  color: 'white'
+
+inputs:
+  username:
+    description: 'Username used to log against the Docker registry'
+    required: true
+  password:
+    description: 'Password or personal access token used to log against the Docker registry'
+    required: true
+  host:
+    description: 'Docker registry host'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        env | grep -v ^GITHUB | sort
+        if  [ -f .env ]; then
+            export $(grep -v '^#' .env  | xargs)
+        fi
+        
+        echo "docker build . -t $IMAGE_NAME:$IMAGE_TAG"
+        docker build . -t $IMAGE_NAME:$IMAGE_TAG
+        docker login -u $e.USERNAME -p $secrets.DOCKER_PASSWORD $HOST
+        docker push $IMAGE_NAME:$IMAGE_TAG
+      shell: bash
+      env:
+        USERNAME: "${{ inputs.username }}"
+        PASSWORD: "${{ inputs.password }}"
+        HOST: "${{ inputs.password }}"
+
