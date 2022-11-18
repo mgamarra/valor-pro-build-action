@@ -33,5 +33,5 @@ runs:
       env:
         USERNAME: "${{ inputs.username }}"
         PASSWORD: "${{ inputs.password }}"
-        HOST: "${{ inputs.password }}"
+        HOST: "${{ inputs.host }}"
 
