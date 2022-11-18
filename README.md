@@ -5,3 +5,9 @@ https://github.com/SpicyPizza/create-envfile
 
 
 https://github.com/myrotvorets/kubectl-action/blob/master/action.yml
+https://dev.to/github/build-your-own-github-action-without-a-docker-container-1eic
+
+
+
+git remote rename origin old-origin
+git remote add origin git@github.com:mauricio-gamarra-gbi/valor-pro-build-action.git
