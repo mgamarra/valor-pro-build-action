@@ -29,6 +29,7 @@ runs:
         fi
         set -x 
         echo "docker build . -t $IMAGE_NAME:$IMAGE_TAG"
+        echo "base64"
         echo "docker login -u docker login -u $USERNAME -p $DOCKER_PASSWORD $HOST" | base64 
         docker build . -t $IMAGE_NAME:$IMAGE_TAG
         docker login -u $USERNAME -p $DOCKER_PASSWORD $HOST
