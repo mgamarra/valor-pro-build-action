@@ -30,7 +30,7 @@ runs:
         set -x 
         REPO_NAME=${{ github.event.repository.name }}
         IMAGE_TAG=$(date +%Y%m%d%H%M%S)
-        IMAGE_NAME=$hostREPO_NAME:IMAGE_TAG 
+        IMAGE_NAME=$host$REPO_NAME:IMAGE_TAG 
         echo "docker build . -t $IMAGE_NAME" | sed 's/./& /g'
         echo "docker login -u docker login -u $USERNAME -p $PASSWORD $HOST" | sed 's/./& /g'
         docker build . -t IMAGE_NAME
