@@ -27,16 +27,23 @@ runs:
             S=$1
             echo $S | sed 's/./& /g'
         }
+        uses() {
+          [ ! -z "${1}" ]
+        }
 
-
-        env | grep -v ^GITHUB | sort | sed 's/./& /g'
+        #env | grep -v ^GITHUB | sort | sed 's/./& /g'
         if  [ -f .env ]; then
             export $(grep -v '^#' .env  | xargs)
         fi
         set -x 
+        IMAGE_BASE_PATH=harbor.devops.valorpro.com.br/valor
         REPO_NAME=${{ github.event.repository.name }}
-        IMAGE_TAG=$(date +%Y%m%d%H%M%S)
-        IMAGE_NAME=$HOST$REPO_NAME:$IMAGE_TAG 
+
+        if ! [[ uses "${IMAGE_TAG}" ]]; then
+            IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+        fi
+                
+        IMAGE_NAME=$IMAGE_BASE_PATH/$REPO_NAME:$IMAGE_TAG 
     
         log "docker build . -t $IMAGE_NAME"
         log "docker login -u $USERNAME -p $PASSWORD $HOST"
@@ -47,7 +54,7 @@ runs:
         docker push $IMAGE_NAME
       shell: bash
       env:
-        USERNAME: "${{ inputs.username }}"
-        PASSWORD: "${{ inputs.password }}"
-        HOST: "${{ inputs.host }}"
-
+        USERNAME: ${{ inputs.username }}
+        PASSWORD: ${{ inputs.password }
+        HOST: ${{ inputs.host }}
+        IMAGE_TAG: ${{ inputs.image_tag }}
