@@ -11,6 +11,9 @@ https://dev.to/github/build-your-own-github-action-without-a-docker-container-1e
 
 git remote rename origin old-origin
 git remote add origin git@github.com:mauricio-gamarra-gbi/valor-pro-build-action.git
+git@github.com:Infoglobo/valor-pro-build-action.git
+
+git remote add origin git@github.com:Infoglobo/valor-pro-build-action.git
 
 
 https://www.youtube.com/watch?v=_qS9UbbkGa4&t=7s
